@@ -1,4 +1,5 @@
 import 'package:first_project/features/languages/widget/topic_drawer.dart';
+import 'package:first_project/models/subtopic.dart';
 import 'package:first_project/models/topic.dart';
 import 'package:first_project/utils/constant.dart';
 import 'package:first_project/utils/enums.dart';
@@ -49,6 +50,8 @@ class _TopicScreenState extends State<TopicScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print({"selectedTopics": selectedTopics.subTopic});
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -76,8 +79,20 @@ class _TopicScreenState extends State<TopicScreen> {
           ? Column(
               children: [
                 Text(topics[selectedTopicIndex].topic),
-                Text(topics[selectedTopicIndex].heading),
-                Text(topics[selectedTopicIndex].body),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    final subTopic = SubTopic.fromJson(selectedTopics.subTopic[index]);
+
+                    return Column(
+                      children: [
+                        Text(subTopic.heading),
+                        Text(subTopic.body),
+                      ],
+                    );
+                  },
+                  itemCount: selectedTopics.subTopic.length,
+                ),
               ],
             )
           : const Center(child: Text('No topics prepared.')),

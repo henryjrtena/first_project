@@ -14,6 +14,7 @@ class CategoryScreen extends StatelessWidget {
     return ListView.builder(
       itemBuilder: (context, index) {
         final category = Categories.values[index];
+
         return GestureDetector(
           onTap: () => onUpdateCategory(category),
           child: ListTile(
